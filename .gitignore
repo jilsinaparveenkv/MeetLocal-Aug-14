@@ -6,6 +6,11 @@ node_modules/
 frontend/.next/
 frontend/out/
 
+# Database data runtime directory
+database/data/
+*.sqlite
+*.db
+
 # Environment files
 .env
 .env.local
