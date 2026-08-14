@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { eventService } from '../../services/events/eventService';
+import { useToast } from '../../context/ToastContext';
 import { Edit3, Trash2, AlertTriangle } from 'lucide-react';
 
 interface EventActionsProps {
@@ -16,6 +17,7 @@ export const EventActions: React.FC<EventActionsProps> = ({ eventId }) => {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
+  const { showToast } = useToast();
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -23,9 +25,12 @@ export const EventActions: React.FC<EventActionsProps> = ({ eventId }) => {
 
     try {
       await eventService.deleteEvent(eventId);
+      showToast('Event deleted successfully', 'success');
       router.push('/events');
     } catch (err: any) {
-      setError(err.message || 'Failed to delete event.');
+      const msg = err.message || 'Failed to delete event.';
+      setError(msg);
+      showToast(msg, 'error');
       setIsDeleting(false);
     }
   };

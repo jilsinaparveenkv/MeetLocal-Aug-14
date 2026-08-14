@@ -6,11 +6,13 @@ import { ProtectedRoute } from '../../../../components/layout/ProtectedRoute';
 import { EventForm } from '../../../../components/events/EventForm';
 import { eventService } from '../../../../services/events/eventService';
 import { eventDetailsService } from '../../../../services/events/eventDetailsService';
+import { useToast } from '../../../../context/ToastContext';
 import { CreateEventInput, Event } from '../../../../types/event';
 
 export default function EditEventPage() {
   const params = useParams();
   const eventId = params.id as string;
+  const { showToast } = useToast();
 
   const [event, setEvent] = useState<Event | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,8 +43,11 @@ export default function EditEventPage() {
     try {
       const res = await eventService.updateEvent(eventId, data);
       if (res.success && res.data) {
+        showToast('Event updated successfully', 'success');
         router.push(`/events/${res.data.id}`);
       }
+    } catch (err: any) {
+      showToast(err.message || 'Failed to update event', 'error');
     } finally {
       setIsSubmitting(false);
     }

@@ -4,10 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { Calendar, PlusCircle, LogIn, LogOut, FolderCheck, Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth();
+  const { showToast } = useToast();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,6 +17,7 @@ export const Navbar: React.FC = () => {
   const handleLogout = () => {
     logout();
     setMobileMenuOpen(false);
+    showToast('Logged out successfully', 'info');
     router.push('/login');
   };
 

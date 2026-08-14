@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { RSVPStatus } from '../../types/rsvp';
 import { useAuth } from '../../context/AuthContext';
+import { useToast } from '../../context/ToastContext';
 import { eventDetailsService } from '../../services/events/eventDetailsService';
 import { CheckCircle, HelpCircle, XCircle, LogIn } from 'lucide-react';
 
@@ -19,6 +20,7 @@ export const RSVPButtons: React.FC<RSVPButtonsProps> = ({
   onRsvpSuccess,
 }) => {
   const { isAuthenticated } = useAuth();
+  const { showToast } = useToast();
   const [activeStatus, setActiveStatus] = useState<RSVPStatus | null>(currentStatus || null);
   const [loadingStatus, setLoadingStatus] = useState<RSVPStatus | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -33,10 +35,13 @@ export const RSVPButtons: React.FC<RSVPButtonsProps> = ({
       const res = await eventDetailsService.postRsvp(eventId, status);
       if (res.success && res.data) {
         setActiveStatus(status);
+        showToast('RSVP updated successfully', 'success');
         onRsvpSuccess(res.data);
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to update RSVP.');
+      const msg = err.message || 'Failed to update RSVP.';
+      setError(msg);
+      showToast(msg, 'error');
     } finally {
       setLoadingStatus(null);
     }
