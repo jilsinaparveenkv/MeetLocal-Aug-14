@@ -1,10 +1,5 @@
 const eventService = require('../services/eventService');
 
-/**
- * @route   GET /api/events
- * @desc    Get all meetup events (supports optional ?search= parameter)
- * @access  Public
- */
 const getEvents = async (req, res, next) => {
   try {
     const { search } = req.query;
@@ -19,11 +14,6 @@ const getEvents = async (req, res, next) => {
   }
 };
 
-/**
- * @route   GET /api/events/:id
- * @desc    Get event by ID with attendee list
- * @access  Public
- */
 const getEventById = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -38,11 +28,6 @@ const getEventById = async (req, res, next) => {
   }
 };
 
-/**
- * @route   POST /api/events
- * @desc    Create a new meetup event
- * @access  Private (Logged-in users only)
- */
 const createEvent = async (req, res, next) => {
   try {
     const organizerId = req.user.id;
@@ -57,11 +42,6 @@ const createEvent = async (req, res, next) => {
   }
 };
 
-/**
- * @route   PUT /api/events/:id
- * @desc    Update event details
- * @access  Private (Event organizer only - verified by ownershipMiddleware)
- */
 const updateEvent = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -76,11 +56,6 @@ const updateEvent = async (req, res, next) => {
   }
 };
 
-/**
- * @route   DELETE /api/events/:id
- * @desc    Delete an event
- * @access  Private (Event organizer only - verified by ownershipMiddleware)
- */
 const deleteEvent = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -94,11 +69,6 @@ const deleteEvent = async (req, res, next) => {
   }
 };
 
-/**
- * @route   GET /api/events/user/my-events
- * @desc    Get events created by the authenticated user
- * @access  Private (Logged-in users only)
- */
 const getMyEvents = async (req, res, next) => {
   try {
     const userId = req.user.id;

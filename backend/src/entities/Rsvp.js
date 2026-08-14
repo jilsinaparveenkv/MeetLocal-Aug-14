@@ -1,10 +1,5 @@
 const { EntitySchema } = require('typeorm');
 
-/**
- * RSVP Entity Schema
- * Represents user RSVPs for meetup events.
- * Has a UNIQUE composite constraint on (event_id, user_id) to prevent duplicate RSVPs.
- */
 module.exports = new EntitySchema({
   name: 'Rsvp',
   tableName: 'rsvps',

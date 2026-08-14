@@ -1,9 +1,5 @@
 const { EntitySchema } = require('typeorm');
 
-/**
- * Event Entity Schema
- * Represents meetup events created by users.
- */
 module.exports = new EntitySchema({
   name: 'Event',
   tableName: 'events',

@@ -1,10 +1,5 @@
 const authService = require('../services/authService');
 
-/**
- * @route   POST /api/auth/login
- * @desc    Authenticate seeded user & get token
- * @access  Public
- */
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -19,11 +14,6 @@ const login = async (req, res, next) => {
   }
 };
 
-/**
- * @route   GET /api/auth/me
- * @desc    Get profile of currently logged-in user
- * @access  Private (Protected by authMiddleware)
- */
 const getMe = async (req, res, next) => {
   try {
     const userId = req.user.id;
@@ -37,11 +27,6 @@ const getMe = async (req, res, next) => {
   }
 };
 
-/**
- * @route   GET /api/auth/users
- * @desc    Get list of seeded users for quick user switching in frontend
- * @access  Public
- */
 const getUsers = async (req, res, next) => {
   try {
     const users = await authService.getAllUsers();

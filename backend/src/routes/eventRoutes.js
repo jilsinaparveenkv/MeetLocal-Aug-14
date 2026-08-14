@@ -5,14 +5,8 @@ const authMiddleware = require('../middleware/authMiddleware');
 const checkEventOwnership = require('../middleware/ownershipMiddleware');
 const rsvpRoutes = require('./rsvpRoutes');
 
-/**
- * Nested RSVP routes (/api/events/:id/rsvp)
- */
 router.use('/:id/rsvp', rsvpRoutes);
 
-/**
- * Event Routes
- */
 router.get('/', eventController.getEvents);
 router.get('/user/my-events', authMiddleware, eventController.getMyEvents);
 router.get('/:id', eventController.getEventById);

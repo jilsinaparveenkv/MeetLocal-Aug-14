@@ -1,10 +1,5 @@
 const { verifyToken } = require('../utils/generateToken');
 
-/**
- * Authentication Middleware
- * Protects endpoints by verifying incoming JWT tokens in the Authorization header.
- * Attaches decoded user profile to req.user.
- */
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -16,7 +11,7 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = verifyToken(token);
-    req.user = decoded; // Attach user info { id, email, name }
+    req.user = decoded;
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Invalid or expired token. Please log in again.' });

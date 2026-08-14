@@ -1,11 +1,7 @@
-import { apiRequest } from '../../lib/api';
-import { Event } from '../../types/event';
+import { api } from '../../lib/api';
 
 export const myEventsService = {
-  /**
-   * Fetch events created by the logged-in user
-   */
-  async getMyEvents(): Promise<{ success: boolean; count: number; data: Event[] }> {
-    return apiRequest<{ success: boolean; count: number; data: Event[] }>('/events/user/my-events');
+  getMyEvents: async () => {
+    return api.get('/events/user/my-events');
   },
 };

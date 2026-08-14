@@ -4,9 +4,6 @@ const { getEventById } = require('./eventService');
 const getRsvpRepository = () => AppDataSource.getRepository('Rsvp');
 const getEventRepository = () => AppDataSource.getRepository('Event');
 
-/**
- * Upsert (create or update) RSVP status for a given user and event
- */
 const upsertRsvp = async (eventId, userId, status) => {
   const validStatuses = ['going', 'maybe', 'declined'];
 
@@ -28,7 +25,6 @@ const upsertRsvp = async (eventId, userId, status) => {
 
   const rsvpRepository = getRsvpRepository();
 
-  // Check if RSVP record already exists for this (event_id, user_id)
   let rsvp = await rsvpRepository.findOne({
     where: {
       event_id: parsedEventId,
@@ -37,11 +33,9 @@ const upsertRsvp = async (eventId, userId, status) => {
   });
 
   if (rsvp) {
-    // Update status if record exists
     rsvp.status = status;
     await rsvpRepository.save(rsvp);
   } else {
-    // Create new RSVP record
     rsvp = rsvpRepository.create({
       event_id: parsedEventId,
       user_id: userId,
@@ -50,13 +44,9 @@ const upsertRsvp = async (eventId, userId, status) => {
     await rsvpRepository.save(rsvp);
   }
 
-  // Return updated event details with attendees
   return await getEventById(parsedEventId, userId);
 };
 
-/**
- * Get all RSVPs / attendees for an event
- */
 const getEventRsvps = async (eventId) => {
   const parsedEventId = parseInt(eventId, 10);
   const rsvpRepository = getRsvpRepository();

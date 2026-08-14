@@ -4,9 +4,6 @@ const { generateToken } = require('../utils/generateToken');
 
 const getUserRepository = () => AppDataSource.getRepository('User');
 
-/**
- * Login user with email & password
- */
 const loginUser = async (email, password) => {
   const userRepository = getUserRepository();
 
@@ -18,14 +15,14 @@ const loginUser = async (email, password) => {
 
   const user = await userRepository.findOne({ where: { email } });
   if (!user) {
-    const error = new Error('Invalid credentials. User not found.');
+    const error = new Error('Invalid credentials.');
     error.statusCode = 401;
     throw error;
   }
 
   const isMatch = await comparePassword(password, user.password);
   if (!isMatch) {
-    const error = new Error('Invalid credentials. Incorrect password.');
+    const error = new Error('Invalid credentials.');
     error.statusCode = 401;
     throw error;
   }
@@ -49,9 +46,6 @@ const loginUser = async (email, password) => {
   };
 };
 
-/**
- * Get profile of currently authenticated user
- */
 const getUserProfile = async (userId) => {
   const userRepository = getUserRepository();
   const user = await userRepository.findOne({
@@ -68,9 +62,6 @@ const getUserProfile = async (userId) => {
   return user;
 };
 
-/**
- * List all users (useful for user-switcher / quick login in frontend)
- */
 const getAllUsers = async () => {
   const userRepository = getUserRepository();
   return await userRepository.find({

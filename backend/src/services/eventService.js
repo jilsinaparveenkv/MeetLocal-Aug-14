@@ -1,11 +1,7 @@
 const { AppDataSource } = require('../config/db');
 
 const getEventRepository = () => AppDataSource.getRepository('Event');
-const getRsvpRepository = () => AppDataSource.getRepository('Rsvp');
 
-/**
- * Fetch all meetup events with optional search query & RSVP counts
- */
 const getAllEvents = async (searchQuery = '') => {
   const eventRepository = getEventRepository();
 
@@ -26,7 +22,6 @@ const getAllEvents = async (searchQuery = '') => {
 
   const events = await queryBuilder.getMany();
 
-  // Format events to include organized RSVP counts
   return events.map((event) => {
     const goingCount = event.rsvps ? event.rsvps.filter((r) => r.status === 'going').length : 0;
     const maybeCount = event.rsvps ? event.rsvps.filter((r) => r.status === 'maybe').length : 0;
@@ -54,9 +49,6 @@ const getAllEvents = async (searchQuery = '') => {
   });
 };
 
-/**
- * Fetch single event details with organizer & attendee list
- */
 const getEventById = async (eventId, currentUserId = null) => {
   const eventRepository = getEventRepository();
 
@@ -71,7 +63,6 @@ const getEventById = async (eventId, currentUserId = null) => {
     throw error;
   }
 
-  // Format attendees list safely (without sensitive password data)
   const attendees = event.rsvps.map((rsvp) => ({
     id: rsvp.id,
     status: rsvp.status,
@@ -83,7 +74,6 @@ const getEventById = async (eventId, currentUserId = null) => {
     },
   }));
 
-  // Identify current user's RSVP status if logged in
   let currentUserRsvp = null;
   if (currentUserId) {
     const userRsvp = event.rsvps.find((r) => r.user_id === currentUserId);
@@ -124,9 +114,6 @@ const getEventById = async (eventId, currentUserId = null) => {
   };
 };
 
-/**
- * Create a new event
- */
 const createEvent = async (eventData, organizerId) => {
   const { title, description, location, date_time } = eventData;
 
@@ -149,9 +136,6 @@ const createEvent = async (eventData, organizerId) => {
   return await getEventById(savedEvent.id, organizerId);
 };
 
-/**
- * Update existing event
- */
 const updateEvent = async (eventId, eventData) => {
   const eventRepository = getEventRepository();
   const event = await eventRepository.findOne({ where: { id: parseInt(eventId, 10) } });
@@ -173,9 +157,6 @@ const updateEvent = async (eventId, eventData) => {
   return await getEventById(event.id);
 };
 
-/**
- * Delete an event
- */
 const deleteEvent = async (eventId) => {
   const eventRepository = getEventRepository();
   const result = await eventRepository.delete({ id: parseInt(eventId, 10) });
@@ -189,9 +170,6 @@ const deleteEvent = async (eventId) => {
   return { message: 'Event deleted successfully.' };
 };
 
-/**
- * Fetch events organized by a specific user
- */
 const getEventsByOrganizer = async (organizerId) => {
   const eventRepository = getEventRepository();
   const events = await eventRepository.find({

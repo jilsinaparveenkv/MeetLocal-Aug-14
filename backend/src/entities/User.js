@@ -1,9 +1,5 @@
 const { EntitySchema } = require('typeorm');
 
-/**
- * User Entity Schema
- * Represents registered application users.
- */
 module.exports = new EntitySchema({
   name: 'User',
   tableName: 'users',
