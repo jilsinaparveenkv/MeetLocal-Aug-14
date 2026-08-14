@@ -32,7 +32,7 @@ export default function HomePage() {
       <section className="bg-gradient-to-r from-indigo-900/60 via-slate-800 to-slate-900 border border-indigo-500/30 rounded-2xl p-8 sm:p-12 shadow-xl text-center sm:text-left relative overflow-hidden">
         <div className="max-w-2xl relative z-10 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-950/90 text-indigo-300 border border-indigo-700/60 rounded-full text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5" />
+           
             <span>Discover Local Community Gatherings</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
