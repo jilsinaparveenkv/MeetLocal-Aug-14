@@ -67,7 +67,7 @@ export const EventForm: React.FC<EventFormProps> = ({
           Event Title *
         </label>
         <div className="relative">
-          <Type className="w-5 h-5 text-slate-500 absolute left-3 top-2.5" />
+          <Type className="w-5 h-5 text-slate-500 absolute left-3 top-2.5 pointer-events-none" />
           <input
             type="text"
             required
@@ -85,7 +85,7 @@ export const EventForm: React.FC<EventFormProps> = ({
           Event Description *
         </label>
         <div className="relative">
-          <AlignLeft className="w-5 h-5 text-slate-500 absolute left-3 top-3" />
+          <AlignLeft className="w-5 h-5 text-slate-500 absolute left-3 top-3 pointer-events-none" />
           <textarea
             required
             rows={4}
@@ -104,7 +104,7 @@ export const EventForm: React.FC<EventFormProps> = ({
             Location / Venue *
           </label>
           <div className="relative">
-            <MapPin className="w-5 h-5 text-slate-500 absolute left-3 top-2.5" />
+            <MapPin className="w-5 h-5 text-slate-500 absolute left-3 top-2.5 pointer-events-none" />
             <input
               type="text"
               required
@@ -121,7 +121,7 @@ export const EventForm: React.FC<EventFormProps> = ({
             Date & Time *
           </label>
           <div className="relative">
-            <Calendar className="w-5 h-5 text-slate-500 absolute left-3 top-2.5" />
+            <Calendar className="w-5 h-5 text-slate-500 absolute left-3 top-2.5 pointer-events-none" />
             <input
               type="datetime-local"
               required

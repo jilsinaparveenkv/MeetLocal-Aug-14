@@ -69,7 +69,7 @@ export const LoginForm: React.FC = () => {
             Email Address
           </label>
           <div className="relative">
-            <Mail className="w-5 h-5 text-slate-500 absolute left-3 top-2.5" />
+            <Mail className="w-5 h-5 text-slate-500 absolute left-3 top-2.5 pointer-events-none" />
             <input
               type="email"
               required
@@ -86,7 +86,7 @@ export const LoginForm: React.FC = () => {
             Password
           </label>
           <div className="relative">
-            <Lock className="w-5 h-5 text-slate-500 absolute left-3 top-2.5" />
+            <Lock className="w-5 h-5 text-slate-500 absolute left-3 top-2.5 pointer-events-none" />
             <input
               type="password"
               required

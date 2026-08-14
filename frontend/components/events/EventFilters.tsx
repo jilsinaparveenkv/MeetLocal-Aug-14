@@ -17,7 +17,7 @@ export const EventFilters: React.FC<EventFiltersProps> = ({
   return (
     <form onSubmit={onSearch} className="w-full max-w-lg mb-8">
       <div className="relative flex items-center">
-        <Search className="w-5 h-5 text-slate-400 absolute left-3.5" />
+        <Search className="w-5 h-5 text-slate-400 absolute left-3.5 pointer-events-none" />
         <input
           type="text"
           value={searchQuery}

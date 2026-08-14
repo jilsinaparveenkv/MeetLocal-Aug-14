@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Base reset and theme variables */
 :root {
   --bg-dark: #0f172a;
@@ -12,6 +16,14 @@
   --amber-color: #f59e0b;
   --rose-color: #f43f5e;
 }
+
+/* Explicit input padding utilities for icon inputs */
+.pl-8 { padding-left: 2rem !important; }
+.pl-10 { padding-left: 2.5rem !important; }
+.pl-11 { padding-left: 2.75rem !important; }
+.pl-12 { padding-left: 3rem !important; }
+.pr-4 { padding-right: 1rem !important; }
+.pr-10 { padding-right: 2.5rem !important; }
 
 * {
   box-sizing: border-box;
